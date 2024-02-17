@@ -1,4 +1,15 @@
 # ing-software-p1-backend
+## Requirements
+
+To set up and run the backend of the "ing-software-p1-backend" project, the user must have the following installed:
+
+1. **Node.js and npm**: Make sure you have Node.js installed on your system. npm comes included with Node.js, so you don't need to install it separately. You can download and install Node.js from its official website: [Node.js Downloads](https://nodejs.org/en/download/).
+
+2. **PostgreSQL**: You must have PostgreSQL installed and configured on your system. You can download and install PostgreSQL from its official website: [PostgreSQL Downloads](https://www.postgresql.org/download/).
+
+3. **Docker (optional)**: If you prefer to use Docker to run PostgreSQL in a container, you will need to have Docker installed on your system. You can download and install Docker from its official website: [Docker Downloads](https://www.docker.com/get-started).
+
+Once you have Node.js/npm and PostgreSQL (or Docker if you prefer) installed, you can follow the provided setup and execution instructions
 
 ## Setup Instructions
 

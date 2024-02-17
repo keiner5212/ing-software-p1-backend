@@ -4,8 +4,18 @@ CREATE DATABASE p1_ing_software;
 
 \c p1_ing_software;
 
+CREATE TABLE Roles (
+    id SERIAL PRIMARY KEY,
+    rol VARCHAR(30) NOT NULL DEFAULT 'Docente'
+);
+
+CREATE TABLE EstadosReservacion (
+    id SERIAL PRIMARY KEY,
+    estado VARCHAR(20) NOT NULL UNIQUE 
+);
+
 CREATE TABLE Usuarios (
-    cedula INTEGER(20) PRIMARY KEY,
+    cedula SERIAL PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
     apellido VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
@@ -15,35 +25,24 @@ CREATE TABLE Usuarios (
 );
 
 CREATE TABLE Salas (
-    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     descripcion TEXT NOT NULL,
-    capacidad TINYINT NOT NULL CHECK (capacidad > 0),
-    piso TINYINT NOT NULL CHECK (piso > 0),
+    capacidad SMALLINT NOT NULL CHECK (capacidad > 0),
+    piso SMALLINT NOT NULL CHECK (piso > 0),
     ocupado BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE Reservaciones (
-    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     usuarioRegistrador INTEGER NOT NULL,
     usuarioRegistrado INTEGER NOT NULL,
     idSala INTEGER NOT NULL,
     estado INTEGER NOT NULL,
-    fechaInicio DATETIME NOT NULL,
-    fechaFin DATETIME NOT NULL,
+    fechaInicio TIMESTAMP NOT NULL,
+    fechaFin TIMESTAMP NOT NULL,
     FOREIGN KEY (usuarioRegistrador) REFERENCES Usuarios(cedula),
     FOREIGN KEY (usuarioRegistrado) REFERENCES Usuarios(cedula),
     FOREIGN KEY (idSala) REFERENCES Salas(id),
-    FOREIGN KEY (estado) REFERENCES EstadosReservacion(id)
+    FOREIGN KEY (estado) REFERENCES EstadosReservacion(id),
+    CONSTRAINT check_fecha CHECK (fechaFin > fechaInicio)
 );
-
-CREATE TABLE Roles (
-    id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    Rol VARCHAR(30) NOT NULL DEFAULT 'Docente'
-);
-
-CREATE TABLE EstadosReservacion (
-    id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    estado VARCHAR(20) NOT NULL UNIQUE 
-);
-
-ALTER TABLE Reservaciones ADD CONSTRAINT check_fecha CHECK (fechaFin > fechaInicio);
