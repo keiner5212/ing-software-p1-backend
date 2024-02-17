@@ -1,0 +1,25 @@
+name: "personalized workflow"
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  say-hi:
+    name: 
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+
+    strategy:
+      matrix:
+        message: [ 'typescript-express-project' ]
+    steps:
+    - name: say hello
+      run: |
+        echo "hello from the repository"
+        echo "message: ${{ matrix.message }}"
