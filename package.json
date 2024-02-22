@@ -5,7 +5,8 @@
   "main": "./src/server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node ./src/server.ts",
+    "start-windows": "set DEBUG=* && ts-node ./src/server.ts",
+    "start-linux-mac": "DEBUG=* ts-node ./src/server.ts",
     "build": "tsc"
   },
   "keywords": [],
@@ -13,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "debug": "^4.3.4",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "pg-promise": "^11.5.1",
@@ -20,8 +22,12 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
+    "@types/debug": "^4.1.12",
     "@types/express": "^4.17.21",
     "@types/pg-promise": "^5.4.3",
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
+    "eslint": "^8.56.0",
     "typescript": "^5.3.3"
   }
 }
