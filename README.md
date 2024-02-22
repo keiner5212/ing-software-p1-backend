@@ -55,9 +55,17 @@ docker exec -i <container_name> psql -f src/db/seed.sql
 
 
 3. Finally, start the application by running:
+   
+for windows users:
 
 ```bash
-npm start
+npm start-windows
+```
+
+for linux and mac users:
+
+```bash
+npm start-linux-mac
 ```
 
 Ensure that PostgreSQL is installed and properly configured on your system for the database commands to work.
