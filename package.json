@@ -4,10 +4,10 @@
   "description": "",
   "main": "./src/server.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start-windows": "set DEBUG=* && ts-node ./src/server.ts",
     "start-linux-mac": "DEBUG=* ts-node ./src/server.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "commit": "cz"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +27,8 @@
     "@types/pg-promise": "^5.4.3",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@typescript-eslint/parser": "^7.0.2",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.56.0",
     "typescript": "^5.3.3"
   }
