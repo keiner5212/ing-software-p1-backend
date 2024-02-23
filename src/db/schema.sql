@@ -15,11 +15,12 @@ CREATE TABLE EstadosReservacion (
 );
 
 CREATE TABLE Usuarios (
-    cedula SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
+    doc_identidad VARCHAR(50),
     nombre VARCHAR(50) NOT NULL,
     apellido VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    contraseña VARCHAR(15) NOT NULL,
+    clave VARCHAR(15) NOT NULL,
     idRol INTEGER NOT NULL,
     FOREIGN KEY (idRol) REFERENCES Roles(id)
 );
@@ -40,8 +41,8 @@ CREATE TABLE Reservaciones (
     estado INTEGER NOT NULL,
     fechaInicio TIMESTAMP NOT NULL,
     fechaFin TIMESTAMP NOT NULL,
-    FOREIGN KEY (usuarioRegistrador) REFERENCES Usuarios(cedula),
-    FOREIGN KEY (usuarioRegistrado) REFERENCES Usuarios(cedula),
+    FOREIGN KEY (usuarioRegistrador) REFERENCES Usuarios(id),
+    FOREIGN KEY (usuarioRegistrado) REFERENCES Usuarios(id),
     FOREIGN KEY (idSala) REFERENCES Salas(id),
     FOREIGN KEY (estado) REFERENCES EstadosReservacion(id),
     CONSTRAINT check_fecha CHECK (fechaFin > fechaInicio)
