@@ -4,6 +4,8 @@ import express, { Request, Response } from "express";
 // CONFIGURATION
 const app = express();
 
+app.disable("x-powered-by");
+
 // MIDDLEWARE
 app.use(cors());
 app.use(express.json());
