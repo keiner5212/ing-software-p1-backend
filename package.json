@@ -4,8 +4,9 @@
   "description": "",
   "main": "./src/server.ts",
   "scripts": {
-    "start-windows": "set DEBUG=* && ts-node ./src/server.ts",
-    "start-linux-mac": "DEBUG=* ts-node ./src/server.ts",
+    "start": "ts-node ./app-runner.ts",
+    "start-windows": "set DEBUG=* -express:application,-express:router:layer,-express:router && ts-node ./src/server.ts",
+    "start-linux-mac": "DEBUG=* -express:application,-express:router:layer,-express:router ts-node ./src/server.ts",
     "build": "tsc"
   },
   "keywords": [],

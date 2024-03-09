@@ -5,7 +5,7 @@ import { serverDebugger } from "./utils/debugConfig";
 
 // CONFIGURATION
 dotenv.config();
-const PORT: number = parseInt(process.env.PORT || '3000', 10);
+const PORT: number = parseInt(process.env.PORT ?? '3000', 10);
 
 // LISTEN
 app.listen(PORT, () => {

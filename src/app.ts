@@ -1,5 +1,6 @@
 import cors from "cors";
 import express, { Request, Response } from "express";
+import morgan from "morgan";
 
 // CONFIGURATION
 const app = express();
@@ -7,12 +8,15 @@ const app = express();
 app.disable("x-powered-by");
 
 // MIDDLEWARE
+app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());
 
 // ROUTES
 app.get("/", (req: Request, res: Response) => {
-    res.send("Welcome to the App");
+    res.send({
+        message: "Welcome to the App",
+    });
 });
 
 // Controllers ROUTES
