@@ -23,7 +23,7 @@ app.get("/", (req: Request, res: Response) => {
 // coming soon
 
 // 404 PAGE
-app.get("*", (req: Request, res: Response) => {
+app.use((req: Request, res: Response) => {
     res.status(404).send("Page not found");
 });
 

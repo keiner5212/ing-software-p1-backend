@@ -11,10 +11,11 @@ function startProccess(windoww_command: string, linux_mac_command: string) {
         if (process.platform === 'win32') {
             command = windoww_command;
         } else {
+            // xd is a linux/mac command but if it is not, it will throw an error
             command = linux_mac_command;
         }
 
-        const childProcess = spawn(command, { shell: true, stdio: 'inherit' });
+        const childProcess = spawn(command, { shell: true, stdio: 'inherit' }); // inherit to preserve the colors :)
 
         if (!childProcess || !childProcess.stdout || !childProcess.stderr) {
             return 'Error getting the operating system';
@@ -25,7 +26,7 @@ function startProccess(windoww_command: string, linux_mac_command: string) {
         });
 
     } catch (error) {
-        console.error(error);
+        console.error(error); //:(
         return 'Error getting the operating system';
     }
 }
