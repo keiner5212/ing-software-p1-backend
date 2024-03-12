@@ -1,6 +1,7 @@
 import cors from "cors";
 import express, { Request, Response } from "express";
 import morgan from "morgan";
+import { SalaController } from "./controllers/SalaController";
 
 // CONFIGURATION
 const app = express();
@@ -20,7 +21,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // Controllers ROUTES
-// coming soon
+app.use("/sala", new SalaController().routes());
 
 // 404 PAGE
 app.use((req: Request, res: Response) => {
