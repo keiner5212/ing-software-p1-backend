@@ -3,30 +3,37 @@ import express, { Request, Response } from "express";
 import morgan from "morgan";
 import { SalaController } from "./controllers/SalaController";
 
-// CONFIGURATION
-const app = express();
+export class App {
+    private app: express.Application;
 
-app.disable("x-powered-by");
+    constructor() {
+        this.app = express();
+    }
 
-// MIDDLEWARE
-app.use(morgan('dev'));
-app.use(cors());
-app.use(express.json());
+    public start() : express.Application {
+        // CONFIG
+        this.app.disable("x-powered-by");
 
-// ROUTES
-app.get("/", (req: Request, res: Response) => {
-    res.send({
-        message: "Welcome to the App",
-    });
-});
+        // MIDDLEWARE
+        this.app.use(morgan('dev'));
+        this.app.use(cors());
+        this.app.use(express.json());
 
-// Controllers ROUTES
-app.use("/sala", new SalaController().routes());
+        // ROUTES
+        this.app.get("/", (req: Request, res: Response) => {
+            res.send({
+                message: "Welcome to the App",
+            });
+        });
 
-// 404 PAGE
-app.use((req: Request, res: Response) => {
-    res.status(404).send("Page not found");
-});
+        // Controllers ROUTES
+        this.app.use("/sala", new SalaController().routes());
 
-// EXPORT
-export default app;
+        // 404 PAGE
+        this.app.use((req: Request, res: Response) => {
+            res.status(404).send("Page not found");
+        });
+
+        return this.app;
+    }
+}
