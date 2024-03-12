@@ -1,5 +1,6 @@
 import pgPromise from "pg-promise";
 import dotenv from "dotenv";
+import { dbDebugger } from "../utils/debugConfig";
 
 dotenv.config();
 
@@ -17,14 +18,14 @@ const db = pgp(cn);
 // print if the conection is successful
 db.connect()
 	.then((obj) => {
-		console.log(
+		dbDebugger(
 			"Conected to the database:",
 			obj.client.database
 		);
 		obj.done();
 	})
 	.catch((error) => {
-		console.error(
+		dbDebugger(
 			"Error connecting to the database:",
 			error.message || error
 		);

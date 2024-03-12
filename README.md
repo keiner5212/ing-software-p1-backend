@@ -33,24 +33,25 @@ Once you have completed the setup steps above, you can run the application with:
 1. Set up the database schema by executing the following command in your terminal:
 
 ```bash
-psql -f src/db/schema.sql
+psql -f src/db/schema-ddl.sql
 ```
 
-or in docker:
+or in docker (copy the files to the container before running the command):
 
 ```bash
-docker exec -i <container_name> psql -f src/db/schema.sql
+docker exec -i <container_name> psql -f src/db/schema-ddl.sql
 ```
+
 
 2. Populate the database with seed data by executing the following command in your terminal:
 
 ```bash
-psql -f src/db/seed.sql
+psql -f src/db/seed-dml.sql
 ```
-or in docker:
+or in docker (copy the files to the container before running the command):
 
 ```bash
-docker exec -i <container_name> psql -f src/db/seed.sql
+docker exec -i <container_name> psql -f src/db/seed-dml.sql
 ```
 
 
@@ -59,6 +60,8 @@ docker exec -i <container_name> psql -f src/db/seed.sql
 ```bash
 npm start
 ```
+
+This will automatically find the command for the OS you are using
 
 Ensure that PostgreSQL is installed and properly configured on your system for the database commands to work.
 
