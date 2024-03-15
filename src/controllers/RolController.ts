@@ -1,9 +1,8 @@
+import { Request, Response, Router } from "express";
+import { RolDAO } from "../dao/RolDAO";
 
-import { Router, Request, Response } from "express";
-import { SalaDAO } from "../dao/SalaDAO";
-
-export class SalaController extends SalaDAO {
-    private router: Router;
+export class RolController extends RolDAO {
+    public router: Router;
 
     constructor() {
         super();
@@ -14,7 +13,7 @@ export class SalaController extends SalaDAO {
         //get all
         this.router.get("/", async (req: Request, res: Response) => {
             try {
-                const data = await SalaDAO.getAll();
+                const data = await RolDAO.getAll();
                 res.status(200).send(data);
             } catch (error: any) {
                 res.status(400).send(error.message);

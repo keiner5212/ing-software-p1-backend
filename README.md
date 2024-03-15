@@ -61,7 +61,7 @@ docker exec -i <container_name> psql -f src/db/seed-dml.sql
 npm start
 ```
 
-This will automatically find the command for the OS you are using
+This will start the application on port 3003.
 
 Ensure that PostgreSQL is installed and properly configured on your system for the database commands to work.
 

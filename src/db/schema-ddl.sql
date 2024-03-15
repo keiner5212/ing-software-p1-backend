@@ -19,7 +19,6 @@ CREATE TABLE EstadosReservacion (
 CREATE TABLE Usuarios (
     id_usuario SERIAL PRIMARY KEY,
     doc_identidad VARCHAR(50),
-    foto TEXT,
     nombre VARCHAR(50) NOT NULL,
     apellido VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
@@ -35,6 +34,13 @@ CREATE TABLE Salas (
     piso SMALLINT NOT NULL CHECK (piso > 0),
     ocupado BOOLEAN NOT NULL DEFAULT FALSE
 );
+
+CREATE TABLE FotosSalas (
+    id_foto SERIAL PRIMARY KEY,
+    id_sala INTEGER NOT NULL,
+    imagen TEXT NOT NULL,
+    FOREIGN KEY (id_sala) REFERENCES Salas(id_sala)
+)
 
 CREATE TABLE Reservaciones (
     id_reservacion SERIAL PRIMARY KEY,

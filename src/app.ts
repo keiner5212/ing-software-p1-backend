@@ -1,39 +1,65 @@
 import cors from "cors";
-import express, { Request, Response } from "express";
+import express, { Application, Request, Response } from "express";
 import morgan from "morgan";
 import { SalaController } from "./controllers/SalaController";
+import { RolController } from "./controllers/RolController";
+import { EstadosReservacionController } from "./controllers/EstadosReservacionController";
+import { UsuarioController } from "./controllers/UsuarioController";
+import { FotosSalasController } from "./controllers/FotosSalasController";
+import { ReservacionController } from "./controllers/ReservacionController";
 
 export class App {
-    private app: express.Application;
+	private app: Application;
 
-    constructor() {
-        this.app = express();
-    }
+	constructor() {
+		this.app = express();
+	}
 
-    public start() : express.Application {
-        // CONFIG
-        this.app.disable("x-powered-by");
+	private configuation() {
+		// CONFIG
+		this.app.disable("x-powered-by");
+	}
 
-        // MIDDLEWARE
-        this.app.use(morgan('dev'));
-        this.app.use(cors());
-        this.app.use(express.json());
+	private midlewares() {
+		// MIDDLEWARE
+		this.app.use(morgan("dev"));
+		this.app.use(cors());
+		this.app.use(express.json());
+	}
 
-        // ROUTES
-        this.app.get("/", (req: Request, res: Response) => {
-            res.send({
-                message: "Welcome to the App",
-            });
-        });
+	private generalRoutes() {
+		// ROUTES
+		this.app.get("/", (req: Request, res: Response) => {
+			res.send({
+				message: "Welcome to the App",
+			});
+		});
+	}
 
-        // Controllers ROUTES
-        this.app.use("/sala", new SalaController().routes());
+	private controllerRoutes() {
+		// Controllers ROUTES
+		this.app.use("/salas", new SalaController().routes());
+		this.app.use("/roles", new RolController().routes());
+		this.app.use("/estados_reservacion", new EstadosReservacionController().routes());
+		this.app.use("/usuarios", new UsuarioController().routes());
+		this.app.use("/fotos_salas", new FotosSalasController().routes());
+		this.app.use("/reservaciones", new ReservacionController().routes());
+	}
 
-        // 404 PAGE
-        this.app.use((req: Request, res: Response) => {
-            res.status(404).send("Page not found");
-        });
+	private NotFound() {
+		// 404 PAGE
+		this.app.use((req: Request, res: Response) => {
+			res.status(404).send("Page not found");
+		});
+	}
 
-        return this.app;
-    }
+	public config(): Application {
+		this.configuation();
+		this.midlewares();
+		this.generalRoutes();
+		this.controllerRoutes();
+		this.NotFound();
+
+		return this.app;
+	}
 }

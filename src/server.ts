@@ -8,7 +8,9 @@ dotenv.config();
 const PORT: number = parseInt(process.env.PORT ?? '3000', 10);
 
 // APP
-const app = new App().start();
+const app = new App().config();
+
+
 // LISTEN
 app.listen(PORT, () => {
     serverDebugger(`Listening on port ${PORT}`);

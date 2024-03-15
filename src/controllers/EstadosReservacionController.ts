@@ -1,8 +1,8 @@
+import { Request, Response, Router } from "express";
+import { EstadosReservacionDAO } from "../dao/EstadosReservacionDAO";
 
-import { Router, Request, Response } from "express";
-import { SalaDAO } from "../dao/SalaDAO";
+export class EstadosReservacionController extends EstadosReservacionDAO {
 
-export class SalaController extends SalaDAO {
     private router: Router;
 
     constructor() {
@@ -14,7 +14,7 @@ export class SalaController extends SalaDAO {
         //get all
         this.router.get("/", async (req: Request, res: Response) => {
             try {
-                const data = await SalaDAO.getAll();
+                const data = await EstadosReservacionDAO.getAll();
                 res.status(200).send(data);
             } catch (error: any) {
                 res.status(400).send(error.message);

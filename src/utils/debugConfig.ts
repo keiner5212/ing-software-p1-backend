@@ -1,5 +1,6 @@
 import Debug from 'debug';
-Debug.enable('*');
+// Debug.enable('*');
+Debug.enable('*,-express:application,-express:router:layer');
 
 // server debugger
 const serverDebugger = Debug('server');
@@ -16,8 +17,25 @@ const authDebugger = Debug('auth');
 // utils debugger
 const utilsDebugger = Debug('utils');
 
-// query debugger
-const queryDebugger = Debug('query');
+// repository debugger
+const repositoryDebugger = Debug('repository');
+
+// entity debugger
+const entityDebugger = Debug('entity');
+
+// middleware debugger
+const middlewareDebugger = Debug('middleware');
+
+// error debugger
+const errorDebugger = Debug('error');
+
+//dao debugger
+const daoDebugger = Debug('dao');
 
 
-export { serverDebugger, controllerDebugger, dbDebugger, authDebugger, utilsDebugger, queryDebugger };
+export {
+    serverDebugger, controllerDebugger,
+    dbDebugger, authDebugger, utilsDebugger,
+    repositoryDebugger, entityDebugger, middlewareDebugger,
+    errorDebugger, daoDebugger
+};

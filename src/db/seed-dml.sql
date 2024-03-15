@@ -11,12 +11,12 @@ INSERT INTO EstadosReservacion (estado) VALUES
 ('Registrado'), 
 ('Terminado');
 
-INSERT INTO Usuarios (nombre, apellido, email, clave, id_rol, doc_identidad, foto) VALUES
-    ('John', 'Doe', 'john.doe@email.com', 'password1', 1, '12345', 'https://randomuser.me/api/portraits/men/1.jpg'),
-    ('Jane', 'Smith', 'jane.smith@email.com', 'password2', 2, '12345', 'https://randomuser.me/api/portraits/women/2.jpg'),
-    ('Alice', 'Johnson', 'alice.johnson@email.com', 'password3', 2, '12345', 'https://randomuser.me/api/portraits/women/3.jpg'),
-    ('Bob', 'Williams', 'bob.williams@email.com', 'password4', 1, '12345', 'https://randomuser.me/api/portraits/men/4.jpg'),
-    ('Charlie', 'Brown', 'charlie.brown@email.com', 'password5', 2, '12345', 'https://randomuser.me/api/portraits/men/5.jpg');
+INSERT INTO Usuarios (nombre, apellido, email, clave, id_rol, doc_identidad) VALUES
+    ('John', 'Doe', 'john.doe@email.com', 'password1', 1, '12345'),
+    ('Jane', 'Smith', 'jane.smith@email.com', 'password2', 2, '12345'),
+    ('Alice', 'Johnson', 'alice.johnson@email.com', 'password3', 2, '12345'),
+    ('Bob', 'Williams', 'bob.williams@email.com', 'password4', 1, '12345'),
+    ('Charlie', 'Brown', 'charlie.brown@email.com', 'password5', 2, '12345');
 
 INSERT INTO Salas (descripcion, capacidad, piso, ocupado) VALUES
     ('Sala de Reuniones A', 10, 2, FALSE),
