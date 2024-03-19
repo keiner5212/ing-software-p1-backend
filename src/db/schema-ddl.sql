@@ -40,7 +40,7 @@ CREATE TABLE FotosSalas (
     id_sala INTEGER NOT NULL,
     imagen TEXT NOT NULL,
     FOREIGN KEY (id_sala) REFERENCES Salas(id_sala)
-)
+);
 
 CREATE TABLE Reservaciones (
     id_reservacion SERIAL PRIMARY KEY,
