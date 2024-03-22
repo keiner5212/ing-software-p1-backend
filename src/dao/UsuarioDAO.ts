@@ -29,10 +29,11 @@ export class UsuarioDAO {
     
     /**
      * Get users by document
+	 * @param document string - document
      * @returns Promise<Usuario[]>
      */
-	public static async GetUsersByDocument() {
-		const data = await db.manyOrNone(UsuarioRepository.GET_BY_DOC_IDENTIDAD);
+	public static async GetUsersByDocument(document: string) {
+		const data = await db.manyOrNone(UsuarioRepository.GET_BY_DOC_IDENTIDAD, [document]);
 		if (data && data.length > 0) {
 			return data;
 		}

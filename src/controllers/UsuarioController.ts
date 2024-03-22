@@ -31,9 +31,10 @@ export class UsuarioController extends UsuarioDAO {
 		});
 
 		// get users by document
-		this.router.get("/document", async (req: any, res: any) => {
+		this.router.get("/document/:document", async (req: any, res: any) => {
 			try {
-				const data = await UsuarioDAO.GetUsersByDocument();
+				const { document } = req.params;
+				const data = await UsuarioDAO.GetUsersByDocument(document);
 				res.status(200).send(data);
 			} catch (error: any) {
 				res.status(400).send(error.message);
