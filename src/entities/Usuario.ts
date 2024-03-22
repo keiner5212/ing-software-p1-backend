@@ -13,13 +13,13 @@ CREATE TABLE Usuarios (
  */
 
 export class Usuario {
-	private id_usuario: number;
-	private doc_identidad: string;
-	private nombre: string;
-	private apellido: string;
-	private email: string;
-	private clave: string;
-	private id_rol: number;
+	public id_usuario: number;
+	public doc_identidad: string;
+	public nombre: string;
+	public apellido: string;
+	public email: string;
+	public clave: string;
+	public id_rol: number;
 
 	constructor(
 		id_usuario: number,
@@ -39,37 +39,5 @@ export class Usuario {
 		this.id_rol = id_rol;
 	}
 
-	getId_usuario() {
-		return this.id_usuario;
-	}
-	getDoc_identidad() {
-		return this.doc_identidad;
-	}
-	getNombre() {
-		return this.nombre;
-	}
-	getApellido() {
-		return this.apellido;
-	}
-	getEmail() {
-		return this.email;
-	}
-	getClave() {
-		return this.clave;
-	}
-	getId_rol() {
-		return this.id_rol;
-	}
 
-	getJson() {
-		return {
-			id_usuario: this.id_usuario,
-			doc_identidad: this.doc_identidad,
-			nombre: this.nombre,
-			apellido: this.apellido,
-			email: this.email,
-			clave: this.clave,
-			id_rol: this.id_rol,
-		};
-	}
 }

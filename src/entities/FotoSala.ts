@@ -8,9 +8,9 @@ CREATE TABLE FotosSalas (
 )
  */
 export class FotoSala {
-	id_foto: number;
-	imagen: string;
-	id_sala: number;
+	public id_foto: number;
+	public imagen: string;
+	public id_sala: number;
 
 	constructor(id_foto: number, imagen: string, id_sala: number) {
 		this.id_foto = id_foto;
@@ -18,23 +18,4 @@ export class FotoSala {
 		this.id_sala = id_sala;
 	}
 
-	getImagen() {
-		return this.imagen;
-	}
-
-	getId_sala() {
-		return this.id_sala;
-	}
-
-	getId_foto() {
-		return this.id_foto;
-	}
-
-	getJson() {
-		return {
-			id_foto: this.id_foto,
-			imagen: this.imagen,
-			id_sala: this.id_sala,
-		};
-	}
 }

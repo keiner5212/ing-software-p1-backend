@@ -12,11 +12,11 @@ CREATE TABLE Salas (
  */
 
 export class Sala {
-	private id_sala: number;
-	private descripcion: string;
-	private capacidad: number;
-	private piso: number;
-	private ocupado: boolean;
+	public id_sala: number;
+	public descripcion: string;
+	public capacidad: number;
+	public piso: number;
+	public ocupado: boolean;
 
 	// constructor
 	constructor(
@@ -33,35 +33,4 @@ export class Sala {
 		this.ocupado = ocupado;
 	}
 
-	// methods
-	public getId_sala() {
-		return this.id_sala;
-	}
-
-	public getCapacidad() {
-		return this.capacidad;
-	}
-
-	public getPiso() {
-		return this.piso;
-	}
-
-	public getOcupado() {
-		return this.ocupado;
-	}
-
-	public getDescripcion() {
-		return this.descripcion;
-	}
-
-	//get json
-	public getJson() {
-		return {
-			id_sala: this.id_sala,
-			descripcion: this.descripcion,
-			capacidad: this.capacidad,
-			piso: this.piso,
-			ocupado: this.ocupado,
-		};
-	}
 }

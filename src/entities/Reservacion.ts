@@ -17,13 +17,13 @@ CREATE TABLE Reservaciones (
  */
 
 export class Reservacion {
-	id_reservacion: number;
-	usuario_registrador: number;
-	usuario_registrado: number;
-	id_sala: number;
-	estado: number;
-	fecha_inicio: Date;
-	fecha_fin: Date;
+	public id_reservacion: number;
+	public usuario_registrador: number;
+	public usuario_registrado: number;
+	public id_sala: number;
+	public estado: number;
+	public fecha_inicio: Date;
+	public fecha_fin: Date;
 
 	constructor(
 		id_reservacion: number,
@@ -43,43 +43,5 @@ export class Reservacion {
 		this.fecha_fin = fecha_fin;
 	}
 
-	public getId_reservacion() {
-		return this.id_reservacion;
-	}
 
-	public getUsuario_registrador() {
-		return this.usuario_registrador;
-	}
-
-	public getUsuario_registrado() {
-		return this.usuario_registrado;
-	}
-
-	public getId_sala() {
-		return this.id_sala;
-	}
-
-	public getEstado() {
-		return this.estado;
-	}
-
-	public getFecha_inicio() {
-		return this.fecha_inicio;
-	}
-
-	public getFecha_fin() {
-		return this.fecha_fin;
-	}
-
-	public getJson() {
-		return {
-			id_reservacion: this.id_reservacion,
-			usuario_registrador: this.usuario_registrador,
-			usuario_registrado: this.usuario_registrado,
-			id_sala: this.id_sala,
-			estado: this.estado,
-			fecha_inicio: this.fecha_inicio,
-			fecha_fin: this.fecha_fin,
-		};
-	}
 }
