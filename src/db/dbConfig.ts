@@ -4,31 +4,46 @@ import { dbDebugger } from "../utils/debugConfig";
 
 dotenv.config();
 
-const pgp = pgPromise();
-const cn = {
-	host: process.env.PG_HOST ?? '',
-	port: Number(process.env.PG_PORT) || 5432,
-	database: process.env.PG_DATABASE ?? '',
-	user: process.env.PG_USER ?? '',
-	password: process.env.PG_PASSWORD ?? '',
+// DB CONFIG
+const dbConfig = {
+  host: process.env.PG_HOST ?? '',
+  port: Number(process.env.PG_PORT) || 5432,
+  database: process.env.PG_DATABASE ?? '',
+  user: process.env.PG_USER ?? '',
+  password: process.env.PG_PASSWORD ?? '',
 };
 
-const db = pgp(cn);
+class DbConfig {
+  private static instance: DbConfig;
+  private db: any;
 
-// print if the conection is successful
-db.connect()
-	.then((obj) => {
-		dbDebugger(
-			"Conected to the database:",
-			obj.client.database
-		);
-		obj.done();
-	})
-	.catch((error) => {
-		dbDebugger(
-			"Error connecting to the database:",
-			error.message || error
-		);
-	});
+  private constructor() {
+    const pgp = pgPromise();
+    this.db = pgp(dbConfig);
+    this.connect();
+  }
 
-export default db;
+  public static getInstance(): DbConfig {
+    if (!DbConfig.instance) {
+      DbConfig.instance = new DbConfig();
+    }
+    return DbConfig.instance;
+  }
+
+  public connect(): void {
+    this.db.connect()
+      .then((obj: any) => {
+        dbDebugger("Connected to the database:", obj.client.database);
+        obj.done();
+      })
+      .catch((error: any) => {
+        dbDebugger("Error connecting to the database:", error.message || error);
+      });
+  }
+
+  public getDb(): any {
+    return this.db;
+  }
+}
+
+export default DbConfig;

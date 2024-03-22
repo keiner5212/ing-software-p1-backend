@@ -17,7 +17,7 @@ export class EstadosReservacionController extends EstadosReservacionDAO {
                 const data = await EstadosReservacionDAO.getAll();
                 res.status(200).send(data);
             } catch (error: any) {
-                res.status(400).send(error.message);
+                res.status(200).send(error.message);
             }
         });
 

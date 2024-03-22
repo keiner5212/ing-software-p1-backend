@@ -1,5 +1,8 @@
-import db from "../db/dbConfig";
+import DbConfig from "../db/dbConfig";
 import { UsuarioRepository } from "../repositories/UsuarioRepository";
+
+const dbInstance = DbConfig.getInstance();
+const db = dbInstance.getDb();
 
 export class UsuarioDAO {
     /**

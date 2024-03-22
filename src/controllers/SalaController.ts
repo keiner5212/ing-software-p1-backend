@@ -17,7 +17,9 @@ export class SalaController extends SalaDAO {
                 const data = await SalaDAO.getAll();
                 res.status(200).send(data);
             } catch (error: any) {
-                res.status(400).send(error.message);
+				res.status(200).send({
+					message: error.message,
+				});
             }
         });
 

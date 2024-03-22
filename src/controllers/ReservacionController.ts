@@ -16,7 +16,9 @@ export class ReservacionController extends ReservacionDAO {
 				const data = await ReservacionDAO.getAll();
 				res.status(200).send(data);
 			} catch (error: any) {
-				res.status(400).send(error.message);
+				res.status(200).send({
+					message: error.message,
+				});
 			}
 		});
 

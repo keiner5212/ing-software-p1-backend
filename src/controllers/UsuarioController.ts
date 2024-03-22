@@ -16,7 +16,9 @@ export class UsuarioController extends UsuarioDAO {
 				const data = await UsuarioDAO.getAll();
 				res.status(200).send(data);
 			} catch (error: any) {
-				res.status(400).send(error.message);
+				res.status(200).send({
+					message: error.message,
+				});
 			}
 		});
 
@@ -26,7 +28,9 @@ export class UsuarioController extends UsuarioDAO {
 				const data = await UsuarioDAO.getBlockedUsers();
 				res.status(200).send(data);
 			} catch (error: any) {
-				res.status(400).send(error.message);
+				res.status(400).send({
+					message: error.message,
+				});
 			}
 		});
 
@@ -37,7 +41,9 @@ export class UsuarioController extends UsuarioDAO {
 				const data = await UsuarioDAO.GetUsersByDocument(document);
 				res.status(200).send(data);
 			} catch (error: any) {
-				res.status(400).send(error.message);
+				res.status(400).send({
+					message: error.message,
+				});
 			}
 		});
 

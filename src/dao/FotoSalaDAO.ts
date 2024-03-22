@@ -1,6 +1,9 @@
-import db from "../db/dbConfig";
+import DbConfig from "../db/dbConfig";
 import { FotoSala } from "../entities/FotoSala";
 import { FotosSalasRepository } from "../repositories/FotosSalasRepository";
+
+const dbInstance = DbConfig.getInstance();
+const db = dbInstance.getDb();
 
 export class FotoSalaDAO {
 	protected static async getAll(): Promise<FotoSala[]> {
@@ -11,3 +14,4 @@ export class FotoSalaDAO {
 		throw new Error("No data found");
 	}
 }
+

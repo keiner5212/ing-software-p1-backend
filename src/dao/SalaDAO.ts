@@ -1,6 +1,9 @@
-import db from "../db/dbConfig";
+import DbConfig from "../db/dbConfig";
 import { Sala } from "../entities/Sala";
 import { SalaRepository } from "../repositories/SalaRepository";
+
+const dbInstance = DbConfig.getInstance();
+const db = dbInstance.getDb();
 
 export class SalaDAO {
     protected static async getAll(): Promise<Sala[]> {

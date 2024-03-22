@@ -1,7 +1,9 @@
-import db from "../db/dbConfig";
+import DbConfig from "../db/dbConfig";
 import { Rol } from "../entities/Rol";
 import { RolRepository } from "../repositories/RolRepository";
 
+const dbInstance = DbConfig.getInstance();
+const db = dbInstance.getDb();
 
 export class RolDAO {
 

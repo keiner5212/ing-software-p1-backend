@@ -1,6 +1,6 @@
 import Debug from 'debug';
 // Debug.enable('*');
-Debug.enable('*,-express:router:route,-express:application,-express:router:layer');
+Debug.enable('*,-express:router:route, -express:router, -body-parser:json,-express:application,-express:router:layer');
 
 // server debugger
 const serverDebugger = Debug('server');

@@ -1,6 +1,9 @@
-import db from "../db/dbConfig";
+import DbConfig from "../db/dbConfig";
 import { Reservacion } from "../entities/Reservacion";
 import { ReservacionesRepository } from "../repositories/ReservacionesRepository";
+
+const dbInstance = DbConfig.getInstance();
+const db = dbInstance.getDb();
 
 export class ReservacionDAO {
     protected static async getAll(): Promise<Reservacion[]> {
