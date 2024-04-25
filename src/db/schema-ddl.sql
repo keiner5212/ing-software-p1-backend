@@ -36,7 +36,7 @@ CREATE TABLE Salas (
 );
 
 CREATE TABLE FotosSalas (
-    id_foto SERIAL PRIMARY KEY,
+    id_foto_sala SERIAL PRIMARY KEY,
     id_sala INTEGER NOT NULL,
     imagen TEXT NOT NULL,
     FOREIGN KEY (id_sala) REFERENCES Salas(id_sala)
