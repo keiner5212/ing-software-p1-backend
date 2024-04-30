@@ -1,4 +1,5 @@
 # ing-software-p1-backend
+
 ## Requirements
 
 To set up and run the backend of the "ing-software-p1-backend" project, the user must have the following installed:
@@ -15,20 +16,14 @@ Once you have Node.js/npm and PostgreSQL (or Docker if you prefer) installed, yo
 
 1. Run `npm install` to install the required dependencies.
 
-2. Create a `.env` file in the root of the project and add the following information with your specific values:
-
-```plaintext
-PORT=3003
-PG_HOST=localhost
-PG_PORT=5432
-PG_DATABASE=
-PG_USER=postgres
-PG_PASSWORD=0
-```
+2. Create a `.env` file in the root of the project and copy the .env.example file into it to set up the environment variables (modify the values as needed).
 
 ## Execution Instructions
 
 Once you have completed the setup steps above, you can run the application with:
+
+!**Note**¡: Ensure that PostgreSQL is installed and properly configured on your system for the database commands to work.
+
 
 1. Set up the database schema by executing the following command in your terminal:
 
@@ -42,18 +37,17 @@ or in docker (copy the files to the container before running the command):
 docker exec -i <container_name> psql -f src/db/schema-ddl.sql
 ```
 
-
 2. Populate the database with seed data by executing the following command in your terminal:
 
 ```bash
 psql -f src/db/seed-dml.sql
 ```
+
 or in docker (copy the files to the container before running the command):
 
 ```bash
 docker exec -i <container_name> psql -f src/db/seed-dml.sql
 ```
-
 
 3. Finally, start the application by running:
 
@@ -61,8 +55,14 @@ docker exec -i <container_name> psql -f src/db/seed-dml.sql
 npm start
 ```
 
-This will start the application on port 3003.
+or run in dev mode:
 
-Ensure that PostgreSQL is installed and properly configured on your system for the database commands to work.
+```bash
+npm run dev
+```
+
+This will start the application on port 3003 (or the port specified in your .env file).
 
 Now you should have your application up and running!
+
+To see the endpoints, go to `http://localhost:3003`
