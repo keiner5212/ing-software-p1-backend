@@ -11,15 +11,23 @@ export class SalaController extends SalaDAO {
     }
 
     public routes(): Router {
-        //get all
+        //routes
         this.router.get("/", async (req: Request, res: Response) => {
+            res.status(200).send({
+                endpoints: {
+                    getAll: "GET /get-all: get all rooms",
+                }
+            })
+        })
+        //get all
+        this.router.get("/get-all", async (req: Request, res: Response) => {
             try {
                 const data = await SalaDAO.getAll();
                 res.status(200).send(data);
             } catch (error: any) {
-				res.status(200).send({
-					message: error.message,
-				});
+                res.status(200).send({
+                    message: error.message,
+                });
             }
         });
 

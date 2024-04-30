@@ -10,8 +10,16 @@ export class FotosSalasController extends FotoSalaDAO {
 	}
 
 	public routes(): Router {
-		//get all
+		//routes
 		this.router.get("/", async (req: Request, res: Response) => {
+			res.status(200).send({
+				endpoints: {
+					getAll: "GET /get-all: get all photos",
+				}
+			})
+		})
+		//get all
+		this.router.get("/get-all", async (req: Request, res: Response) => {
 			try {
 				const data = await FotoSalaDAO.getAll();
 				res.status(200).send(data);

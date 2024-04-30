@@ -3,6 +3,10 @@ import DbConfig from "../db/dbConfig";
 import { RolRepository } from "../repositories/RolRepository";
 import { UsuarioRepository } from "../repositories/UsuarioRepository";
 import { ComparePassword, EncriptPassword, decryptContent } from "../utils/encrypt";
+import { RolesConstants } from "../utils/constants/Roles";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const dbInstance = DbConfig.getInstance();
 const db = dbInstance.getDb();
@@ -70,7 +74,7 @@ export class UsuarioDAO {
 	 * */
 	public static async signUp(doc_identidad: string, nombre: string, apellido: string, email: string, clave: string) {
 		//set default teacher role
-		const TeacherRole = await db.oneOrNone(RolRepository.GET_BY_ROLE, ["Docente"]);
+		const TeacherRole = await db.oneOrNone(RolRepository.GET_BY_ROLE, [RolesConstants.TEACHER]);
 		if (!TeacherRole) {
 			throw new Error("Error in sign in: Teacher role not found");
 		}
@@ -105,8 +109,13 @@ export class UsuarioDAO {
 		if (!user) {
 			throw new Error("Error in sign in: User not found");
 		}
+
+		//get user role
+		const role = await db.oneOrNone(RolRepository.GET_BY_ID, [user.id_rol]);
+
 		//decrypt password using crypto
 		const claveDecrypted = decryptContent(clave);
+
 		//compare password
 		const passwordMatch = await ComparePassword(claveDecrypted, user.clave);
 		if (!passwordMatch) {
@@ -114,8 +123,8 @@ export class UsuarioDAO {
 		}
 
 		// create token and return it
-		const token = sign({ id: user.id, email, doc_identidad: user.doc_identidad }, process.env.JWT_SECRET as string, {
-			expiresIn: '1h',
+		const token = sign({ id: user.id, email, doc_identidad: user.doc_identidad, rol: role.rol }, process.env.JWT_SECRET as string, {
+			expiresIn: process.env.JWT_EXPIRATION_TIME,
 		});
 		return token;
 	}

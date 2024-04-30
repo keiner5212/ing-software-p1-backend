@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express";
 import { UsuarioDAO } from "../dao/UsuarioDAO";
-import { validateUser } from "../middlewares/Usuario.validator";
+import { validateSignIn, validateUser } from "../middlewares/Usuario.validator";
+import { validateAdmin, verifyToken } from "../middlewares/jwt";
 
 export class UsuarioController extends UsuarioDAO {
 	public router: Router;
@@ -25,7 +26,7 @@ export class UsuarioController extends UsuarioDAO {
 		})
 
 		//get all
-		this.router.get("/get-all", async (req: Request, res: Response) => {
+		this.router.get("/get-all", verifyToken, async (req: Request, res: Response) => {
 			try {
 				const data = await UsuarioDAO.getAll();
 				res.status(200).send(data);
@@ -37,7 +38,7 @@ export class UsuarioController extends UsuarioDAO {
 		});
 
 		//get blcoked users
-		this.router.get("/blocked", async (req: Request, res: Response) => {
+		this.router.get("/blocked", verifyToken, validateAdmin, async (req: Request, res: Response) => {
 			try {
 				const data = await UsuarioDAO.getBlockedUsers();
 				res.status(200).send(data);
@@ -49,7 +50,7 @@ export class UsuarioController extends UsuarioDAO {
 		});
 
 		// get users by document
-		this.router.get("/document/:document", async (req: Request, res: Response) => {
+		this.router.get("/document/:document", verifyToken, validateAdmin, async (req: Request, res: Response) => {
 			try {
 				const { document } = req.params;
 				const data = await UsuarioDAO.GetUsersByDocument(document);
@@ -64,7 +65,6 @@ export class UsuarioController extends UsuarioDAO {
 		//sign up
 		this.router.post("/signup", validateUser, async (req: Request, res: Response) => {
 			try {
-
 				const { doc_identidad, nombre, apellido, email, clave } = req.body;
 
 				const data = await UsuarioDAO.signUp(
@@ -83,7 +83,7 @@ export class UsuarioController extends UsuarioDAO {
 		});
 
 		//sign in
-		this.router.post("/signin", validateUser, async (req: Request, res: Response) => {
+		this.router.post("/signin", validateSignIn, async (req: Request, res: Response) => {
 			try {
 				const { email, clave } = req.body;
 				const data = await UsuarioDAO.signIn(email, clave);
