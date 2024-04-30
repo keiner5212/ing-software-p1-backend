@@ -15,7 +15,7 @@ const dbConfig = {
 
 class DbConfig {
   private static instance: DbConfig;
-  private db: any;
+  private db: pgPromise.IDatabase<any>;
 
   private constructor() {
     const pgp = pgPromise();
@@ -41,7 +41,7 @@ class DbConfig {
       });
   }
 
-  public getDb(): any {
+  public getDb() {
     return this.db;
   }
 }

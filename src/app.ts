@@ -10,6 +10,8 @@ import { ReservacionController } from "./controllers/ReservacionController";
 
 export class App {
 	private app: Application;
+	private prefix = "/api/v1";
+
 
 	constructor() {
 		this.app = express();
@@ -32,18 +34,26 @@ export class App {
 		this.app.get("/", (req: Request, res: Response) => {
 			res.send({
 				message: "Welcome to the App",
+				endpoints: {
+					salas: `GET ${this.prefix}/salas`,
+					roles: `GET ${this.prefix}/roles`,
+					estados_reservacion: `GET ${this.prefix}/estados_reservacion`,
+					usuarios: `GET ${this.prefix}/usuarios`,
+					fotos_salas: `GET ${this.prefix}/fotos_salas`,
+					reservaciones: `GET ${this.prefix}/reservaciones`,
+				}
 			});
 		});
 	}
 
 	private controllerRoutes() {
 		// Controllers ROUTES
-		this.app.use("/salas", new SalaController().routes());
-		this.app.use("/roles", new RolController().routes());
-		this.app.use("/estados_reservacion", new EstadosReservacionController().routes());
-		this.app.use("/usuarios", new UsuarioController().routes());
-		this.app.use("/fotos_salas", new FotosSalasController().routes());
-		this.app.use("/reservaciones", new ReservacionController().routes());
+		this.app.use(this.prefix + "/salas", new SalaController().routes());
+		this.app.use(this.prefix + "/roles", new RolController().routes());
+		this.app.use(this.prefix + "/estados_reservacion", new EstadosReservacionController().routes());
+		this.app.use(this.prefix + "/usuarios", new UsuarioController().routes());
+		this.app.use(this.prefix + "/fotos_salas", new FotosSalasController().routes());
+		this.app.use(this.prefix + "/reservaciones", new ReservacionController().routes());
 	}
 
 	private NotFound() {

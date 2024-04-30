@@ -32,5 +32,14 @@ export class Sala {
 		this.piso = piso;
 		this.ocupado = ocupado;
 	}
+	
+	/* json example
+	 {
+		"descripcion": "Sala de Reuniones A",
+		"capacidad": 10,
+		"piso": 2,
+		"ocupado": false
+	 }
+	*/
 
 }

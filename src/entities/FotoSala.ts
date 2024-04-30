@@ -18,4 +18,12 @@ export class FotoSala {
 		this.id_sala = id_sala;
 	}
 
+	/* json example
+	 {
+		"imagen": "url",
+		"id_sala": 1
+	 }
+	*/
+
+
 }

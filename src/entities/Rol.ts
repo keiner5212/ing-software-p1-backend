@@ -15,5 +15,10 @@ export class Rol {
 		this.rol = rol;
 	}
 
+	/* json example
+	 {
+		"rol": "Docente"
+	 }
+	*/
 
 }

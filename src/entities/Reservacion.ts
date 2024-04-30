@@ -44,4 +44,15 @@ export class Reservacion {
 	}
 
 
+	/* json example
+	 {
+		"usuario_registrador": 1,
+		"usuario_registrado": 2,
+		"id_sala": 1,
+		"estado": 1,
+		"fecha_inicio": "2022-10-01T00:00:00.000Z",
+		"fecha_fin": "2022-11-01T00:00:00.000Z"
+	 }
+	*/
+
 }

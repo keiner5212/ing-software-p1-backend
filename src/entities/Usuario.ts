@@ -39,5 +39,14 @@ export class Usuario {
 		this.id_rol = id_rol;
 	}
 
+	/* json example
+	 {
+		"doc_identidad": "123456789",
+		"nombre": "John",
+		"apellido": "Doe",
+		"email": "pCJqK@example.com",
+		"clave": "password",
+	 }
+	*/
 
 }

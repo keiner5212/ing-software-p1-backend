@@ -1,4 +1,3 @@
-// DEPENDENCIES
 import dotenv from "dotenv";
 import { serverDebugger } from "./utils/debugConfig";
 import { App } from "./app";

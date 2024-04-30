@@ -15,5 +15,11 @@ export class EstadosReservacion {
 		this.estado = estado;
 	}
 
+	/* json example
+	 {
+		"estado": "x"
+	 }
+	*/
+
 
 }
