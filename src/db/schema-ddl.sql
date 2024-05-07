@@ -22,7 +22,7 @@ CREATE TABLE Usuarios (
     nombre VARCHAR(50) NOT NULL,
     apellido VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    clave VARCHAR(15) NOT NULL,
+    clave TEXT NOT NULL,
     id_rol INTEGER NOT NULL,
     FOREIGN KEY (id_rol) REFERENCES Roles(id_rol)
 );

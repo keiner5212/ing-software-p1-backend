@@ -41,16 +41,17 @@ export class UsuarioDAO {
 	 * @returns Promise<Usuario[]>
 	 */
 	public static async getAll() {
-		await db.task(async (t: pgPromise.IDatabase<any>) => {
+		return await db.task(async (t: pgPromise.IDatabase<any>) => {
 			return await t.manyOrNone(UsuarioRepository.GET_ALL);
 		}).then((data) => {
 			if (data && data.length > 0) {
 				return data;
 			}
+			throw new Error("No data found");
 		}).catch((err) => {
 			console.log(err);
+			throw err;
 		})
-		throw new Error("No data found");
 	}
 
 	/**
@@ -199,7 +200,7 @@ export class UsuarioDAO {
 			const newIDRol = id_rol ?? user.id_rol;
 
 			//update user
-			return await t.oneOrNone(UsuarioRepository.UPDATE, [doc_identidad, nombre, apellido, email, password, newIDRol, user.id]);
+			return await t.result(UsuarioRepository.UPDATE, [doc_identidad, nombre, apellido, email, password, newIDRol, user.id_usuario]);
 
 		}).then(() => {
 			return "User updated successfully";
