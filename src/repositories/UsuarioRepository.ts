@@ -15,4 +15,8 @@ export const UsuarioRepository = {
     "ADD": "INSERT INTO Usuarios(doc_identidad, nombre, apellido, email, clave, id_rol) VALUES($1, $2, $3, $4, $5, $6) RETURNING id_usuario;",
     //get by email
     "GET_BY_EMAIL": "SELECT id_usuario, doc_identidad, nombre, apellido, email, clave, id_rol FROM Usuarios WHERE email = $1;",
+    //update
+    "UPDATE": "UPDATE Usuarios SET doc_identidad = $1, nombre = $2, apellido = $3, email = $4, clave = $5, id_rol = $6 WHERE id_usuario = $7;",
+    //delete
+    "DELETE": "DELETE FROM Usuarios WHERE id_usuario = $1;",
 };
