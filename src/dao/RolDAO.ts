@@ -8,11 +8,17 @@ const db = dbInstance.getDb();
 export class RolDAO {
 
     protected static async getAll(): Promise<Rol[]> {
-        const data = await db.manyOrNone(RolRepository.GET_ALL);
-        if (data && data.length > 0) {
-            return data;
-        }
-        throw new Error("No data found");
+        return await db.task(async (t) => {
+            return await t.manyOrNone(RolRepository.GET_ALL);
+        }).then((data) => {
+            if (data && data.length > 0) {
+                return data;
+            }
+            throw new Error("No data found");
+        }).catch((err) => {
+            console.log(err);
+            throw err;
+        })
     }
 
 }

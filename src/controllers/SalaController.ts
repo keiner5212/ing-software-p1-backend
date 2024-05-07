@@ -1,6 +1,7 @@
 
 import { Router, Request, Response } from "express";
 import { SalaDAO } from "../dao/SalaDAO";
+import { verifyToken } from "../middlewares/jwt";
 
 export class SalaController extends SalaDAO {
     private router: Router;
@@ -20,7 +21,7 @@ export class SalaController extends SalaDAO {
             })
         })
         //get all
-        this.router.get("/get-all", async (req: Request, res: Response) => {
+        this.router.get("/get-all", verifyToken, async (req: Request, res: Response) => {
             try {
                 const data = await SalaDAO.getAll();
                 res.status(200).send(data);

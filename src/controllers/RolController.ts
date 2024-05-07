@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import { RolDAO } from "../dao/RolDAO";
+import { verifyToken } from "../middlewares/jwt";
 
 export class RolController extends RolDAO {
     public router: Router;
@@ -19,14 +20,14 @@ export class RolController extends RolDAO {
             })
         })
         //get all
-        this.router.get("/get-all", async (req: Request, res: Response) => {
+        this.router.get("/get-all", verifyToken, async (req: Request, res: Response) => {
             try {
                 const data = await RolDAO.getAll();
                 res.status(200).send(data);
             } catch (error: any) {
-				res.status(200).send({
-					message: error.message,
-				});
+                res.status(200).send({
+                    message: error.message,
+                });
             }
         });
 

@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import { EstadosReservacionDAO } from "../dao/EstadosReservacionDAO";
+import { verifyToken } from "../middlewares/jwt";
 
 export class EstadosReservacionController extends EstadosReservacionDAO {
 
@@ -20,7 +21,7 @@ export class EstadosReservacionController extends EstadosReservacionDAO {
             })
         })
         //get all
-        this.router.get("/get-all", async (req: Request, res: Response) => {
+        this.router.get("/get-all", verifyToken, async (req: Request, res: Response) => {
             try {
                 const data = await EstadosReservacionDAO.getAll();
                 res.status(200).send(data);

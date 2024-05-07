@@ -7,10 +7,16 @@ const db = dbInstance.getDb();
 
 export class SalaDAO {
     protected static async getAll(): Promise<Sala[]> {
-        const data = await db.manyOrNone(SalaRepository.GET_ALL);
-        if (data && data.length > 0) {
-            return data;
-        } 
-        throw new Error("No data found");
+        return await db.task(async (t) => {
+            return await t.manyOrNone(SalaRepository.GET_ALL);
+        }).then((data) => {
+            if (data && data.length > 0) {
+                return data;
+            }
+            throw new Error("No data found");
+        }).catch((err) => {
+            console.log(err);
+            throw err;
+        })
     }
 }

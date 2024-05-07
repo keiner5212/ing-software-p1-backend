@@ -7,10 +7,16 @@ const db = dbInstance.getDb();
 
 export class ReservacionDAO {
     protected static async getAll(): Promise<Reservacion[]> {
-        const data = await db.manyOrNone(ReservacionesRepository.GET_ALL);
-        if (data && data.length > 0) {
-            return data;
-        }
-        throw new Error("No data found");
+        return await db.task(async (t) => {
+            return await t.manyOrNone(ReservacionesRepository.GET_ALL);
+        }).then((data => {
+            if (data && data.length > 0) {
+                return data;
+            }
+            throw new Error("No data found");
+        })).catch((err) => {
+            console.log(err);
+            throw err;
+        })
     }
 }

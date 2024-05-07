@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import { FotoSalaDAO } from "../dao/FotoSalaDAO";
+import { verifyToken } from "../middlewares/jwt";
 
 export class FotosSalasController extends FotoSalaDAO {
 	private router: Router;
@@ -19,7 +20,7 @@ export class FotosSalasController extends FotoSalaDAO {
 			})
 		})
 		//get all
-		this.router.get("/get-all", async (req: Request, res: Response) => {
+		this.router.get("/get-all", verifyToken, async (req: Request, res: Response) => {
 			try {
 				const data = await FotoSalaDAO.getAll();
 				res.status(200).send(data);
