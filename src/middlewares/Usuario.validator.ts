@@ -7,7 +7,8 @@ export const validateUser = (req: Request, res: Response, next: NextFunction) =>
 		nombre: Joi.string().required(),
 		apellido: Joi.string().required(),
 		email: Joi.string().email().required(),
-		clave: Joi.string().required()
+		clave: Joi.string().required(),
+		id_rol: Joi.number().optional()
 	});
 
 	const { error } = schema.validate(req.body);

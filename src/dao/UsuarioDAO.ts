@@ -5,6 +5,7 @@ import { UsuarioRepository } from "../repositories/UsuarioRepository";
 import { ComparePassword, EncriptPassword, decryptContent } from "../utils/encrypt";
 import { RolesConstants } from "../utils/constants/Roles";
 import dotenv from "dotenv";
+import pgPromise from "pg-promise";
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ const db = dbInstance.getDb();
 export class UsuarioDAO {
 
 	protected static async userExists(email: string, doc_identidad: string) {
-		await db.task(async (t) => {
+		await db.task(async (t: pgPromise.IDatabase<any>) => {
 			return await t.manyOrNone(UsuarioRepository.GET_BY_EMAIL, [email]);
 		}).then((user) => {
 			if (user && user.length > 0) {
@@ -24,7 +25,7 @@ export class UsuarioDAO {
 			throw err;
 		});
 
-		await db.task(async (t) => {
+		await db.task(async (t: pgPromise.IDatabase<any>) => {
 			return await t.manyOrNone(UsuarioRepository.GET_BY_DOC_IDENTIDAD, [doc_identidad]);
 		}).then((user) => {
 			if (user && user.length > 0) {
@@ -40,7 +41,7 @@ export class UsuarioDAO {
 	 * @returns Promise<Usuario[]>
 	 */
 	public static async getAll() {
-		await db.task(async (t) => {
+		await db.task(async (t: pgPromise.IDatabase<any>) => {
 			return await t.manyOrNone(UsuarioRepository.GET_ALL);
 		}).then((data) => {
 			if (data && data.length > 0) {
@@ -57,7 +58,7 @@ export class UsuarioDAO {
 	 * @returns Promise<Usuario[]>
 	 */
 	public static async getBlockedUsers() {
-		await db.task(async (t) => {
+		await db.task(async (t: pgPromise.IDatabase<any>) => {
 			return await t.manyOrNone(UsuarioRepository.GET_BLOCKED_USERS);
 		}).then((data) => {
 			if (data && data.length > 0) {
@@ -76,7 +77,7 @@ export class UsuarioDAO {
 	 * @returns Promise<Usuario[]>
 	 */
 	public static async GetUsersByDocument(document: string) {
-		await db.task(async (t) => {
+		await db.task(async (t: pgPromise.IDatabase<any>) => {
 			return await t.manyOrNone(UsuarioRepository.GET_BY_DOC_IDENTIDAD, [document]);
 		}).then((data) => {
 			if (data && data.length > 0) {
@@ -99,7 +100,7 @@ export class UsuarioDAO {
 	 * @throws Error
 	 * */
 	public static async signUp(doc_identidad: string, nombre: string, apellido: string, email: string, clave: string) {
-		await db.task(async (t) => {
+		await db.task(async (t: pgPromise.IDatabase<any>) => {
 			//set default teacher role
 			const TeacherRole = await t.oneOrNone(RolRepository.GET_BY_ROLE, [RolesConstants.TEACHER]);
 			if (!TeacherRole) {
@@ -133,7 +134,7 @@ export class UsuarioDAO {
 	 * @throws Error
 	 * */
 	public static async signIn(email: string, clave: string) {
-		return await db.task(async (t) => {
+		return await db.task(async (t: pgPromise.IDatabase<any>) => {
 			//get user
 			const user = await t.oneOrNone(UsuarioRepository.GET_BY_EMAIL, [email]);
 			if (!user) {
@@ -163,5 +164,70 @@ export class UsuarioDAO {
 			throw new Error("Error in sign in");
 		})
 
+	}
+
+	/**
+	 * Update user
+	 * @param doc_identidad
+	 * @param nombre 
+	 * @param apellido 
+	 * @param email 
+	 * @param clave 
+	 * @param id_rol 
+	 * @returns 
+	 */
+	public static async updateUser(
+		doc_identidad: string,
+		nombre: string,
+		apellido: string,
+		email: string,
+		clave: string,
+		id_rol?: number
+	) {
+		return await db.task(async (t: pgPromise.IDatabase<any>) => {
+			//try get user
+			const user = await t.oneOrNone(UsuarioRepository.GET_BY_EMAIL, [email]);
+			if (!user) {
+				throw new Error("Error in sign in: User not found");
+			}
+
+			//decrypt password using crypto
+			const claveDecrypted = decryptContent(clave);
+			//encrypt password using Bcrypt
+			const password = await EncriptPassword(claveDecrypted);
+
+			const newIDRol = id_rol ?? user.id_rol;
+
+			//update user
+			return await t.oneOrNone(UsuarioRepository.UPDATE, [doc_identidad, nombre, apellido, email, password, newIDRol, user.id]);
+
+		}).then(() => {
+			return "User updated successfully";
+		}).catch((err) => {
+			console.log(err);
+			throw err
+		})
+	}
+
+	/**
+	 * Delete user
+	 * @param email 
+	 * @returns 
+	 */
+	public static async deleteUser(email: string) {
+		return await db.task(async (t: pgPromise.IDatabase<any>) => {
+			//try get user
+			const user = await t.oneOrNone(UsuarioRepository.GET_BY_EMAIL, [email]);
+			if (!user) {
+				throw new Error("Error in sign in: User not found");
+			}
+			//delete user
+			return await t.oneOrNone(UsuarioRepository.DELETE_BY_EMAIL, [email]);
+		}).then(() => {
+			return "User deleted successfully";
+		}).catch((err) => {
+			console.log(err);
+			throw err
+		})
 	}
 }

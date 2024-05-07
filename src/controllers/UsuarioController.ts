@@ -95,6 +95,50 @@ export class UsuarioController extends UsuarioDAO {
 			}
 		});
 
+		//update (public)
+		this.router.put("/update", validateUser, verifyToken, async (req: Request, res: Response) => {
+			try {
+				const { doc_identidad, nombre, apellido, email, clave } = req.body;
+
+				const data = await UsuarioDAO.updateUser(
+					doc_identidad,
+					nombre,
+					apellido,
+					email,
+					clave,
+				);
+				res.status(201).send(data);
+			} catch (error: any) {
+				res.status(400).send({
+					message: error.message,
+				});
+			}
+		});
+
+		//update (admin)
+
+		this.router.put("/a-update", validateUser, verifyToken, validateAdmin, async (req: Request, res: Response) => {
+			try {
+				const { doc_identidad, nombre, apellido, email, clave, id_rol } = req.body;
+
+				const data = await UsuarioDAO.updateUser(
+					doc_identidad,
+					nombre,
+					apellido,
+					email,
+					clave,
+					id_rol
+				);
+				res.status(201).send(data);
+			} catch (error: any) {
+				res.status(400).send({
+					message: error.message,
+				});
+			}
+		});
+
+		//delete
+
 		return this.router;
 	}
 }

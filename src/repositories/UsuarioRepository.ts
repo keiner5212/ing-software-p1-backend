@@ -19,4 +19,6 @@ export const UsuarioRepository = {
     "UPDATE": "UPDATE Usuarios SET doc_identidad = $1, nombre = $2, apellido = $3, email = $4, clave = $5, id_rol = $6 WHERE id_usuario = $7;",
     //delete
     "DELETE": "DELETE FROM Usuarios WHERE id_usuario = $1;",
+    //delete by email
+    "DELETE_BY_EMAIL": "DELETE FROM Usuarios WHERE email = $1;"
 };
