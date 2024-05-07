@@ -21,6 +21,10 @@ export class UsuarioController extends UsuarioDAO {
 					getByDocument: "GET /document/:document: get users by document",
 					signUp: "POST /signup: sign up",
 					signIn: "POST /signin: sign in",
+					update: "PUT /update: update user",
+					a_update: "PUT /a-update: update user (admin)",
+					delete_by_email: "DELETE /delete: delete user",
+					delete_by_id: "DELETE /delete/:id: delete user",
 				}
 			})
 		})
@@ -116,7 +120,6 @@ export class UsuarioController extends UsuarioDAO {
 		});
 
 		//update (admin)
-
 		this.router.put("/a-update", validateUser, verifyToken, validateAdmin, async (req: Request, res: Response) => {
 			try {
 				const { doc_identidad, nombre, apellido, email, clave, id_rol } = req.body;
@@ -137,7 +140,31 @@ export class UsuarioController extends UsuarioDAO {
 			}
 		});
 
-		//delete
+		//delete by email
+		this.router.delete("/delete", verifyToken, validateAdmin, async (req: Request, res: Response) => {
+			try {
+				const { email } = req.body;
+				const data = await UsuarioDAO.deleteUserByEmail(email);
+				res.status(201).send(data);
+			} catch (error: any) {
+				res.status(400).send({
+					message: error.message,
+				});
+			}
+		});
+
+		//delete by id
+		this.router.delete("/delete/:id", verifyToken, validateAdmin, async (req: Request, res: Response) => {
+			try {
+				const { id } = req.params;
+				const data = await UsuarioDAO.deleteUserByID(parseInt(id));
+				res.status(201).send(data);
+			} catch (error: any) {
+				res.status(400).send({
+					message: error.message,
+				});
+			}
+		});
 
 		return this.router;
 	}

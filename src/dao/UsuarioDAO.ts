@@ -100,7 +100,7 @@ export class UsuarioDAO {
 	 * @throws Error
 	 * */
 	public static async signUp(doc_identidad: string, nombre: string, apellido: string, email: string, clave: string) {
-		await db.task(async (t: pgPromise.IDatabase<any>) => {
+		return await db.task(async (t: pgPromise.IDatabase<any>) => {
 			//set default teacher role
 			const TeacherRole = await t.oneOrNone(RolRepository.GET_BY_ROLE, [RolesConstants.TEACHER]);
 			if (!TeacherRole) {
@@ -116,13 +116,13 @@ export class UsuarioDAO {
 			return await db.oneOrNone(UsuarioRepository.ADD,
 				[doc_identidad, nombre, apellido, email, password, TeacherRole.id_rol]);
 		}).then((data) => {
-			if (data && data.length > 0) {
+			if (data) {
 				return data;
 			}
 		}).catch((err) => {
 			console.log(err);
+			throw new Error("Error in sign in: User not created");
 		})
-		throw new Error("Error in sign in: User not created");
 	}
 
 
@@ -188,7 +188,7 @@ export class UsuarioDAO {
 			//try get user
 			const user = await t.oneOrNone(UsuarioRepository.GET_BY_EMAIL, [email]);
 			if (!user) {
-				throw new Error("Error in sign in: User not found");
+				throw new Error("Error: User not found");
 			}
 
 			//decrypt password using crypto
@@ -214,12 +214,12 @@ export class UsuarioDAO {
 	 * @param email 
 	 * @returns 
 	 */
-	public static async deleteUser(email: string) {
+	public static async deleteUserByEmail(email: string) {
 		return await db.task(async (t: pgPromise.IDatabase<any>) => {
 			//try get user
 			const user = await t.oneOrNone(UsuarioRepository.GET_BY_EMAIL, [email]);
 			if (!user) {
-				throw new Error("Error in sign in: User not found");
+				throw new Error("Error: User not found");
 			}
 			//delete user
 			return await t.oneOrNone(UsuarioRepository.DELETE_BY_EMAIL, [email]);
@@ -230,4 +230,28 @@ export class UsuarioDAO {
 			throw err
 		})
 	}
+
+	/**
+	 * Delete user by id
+	 * @param user_id 
+	 * @returns 
+	 */
+	public static async deleteUserByID(user_id: number) {
+		return await db.task(async (t: pgPromise.IDatabase<any>) => {
+			//try get user
+			const user = await t.oneOrNone(UsuarioRepository.GET_BY_ID, [user_id]);
+			if (!user) {
+				throw new Error("Error: User not found");
+			}
+			//delete user
+			return await t.oneOrNone(UsuarioRepository.DELETE, [user_id]);
+		}).then(() => {
+			return "User deleted successfully";
+		}).catch((err) => {
+			console.log(err);
+			throw err
+		})
+	}
+
+
 }

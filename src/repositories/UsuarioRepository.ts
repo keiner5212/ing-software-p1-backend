@@ -1,6 +1,7 @@
 export const UsuarioRepository = {
     "GET_ALL":
         "SELECT id_usuario, doc_identidad, nombre, apellido, email, clave, id_rol FROM Usuarios ORDER BY id_usuario ASC;",
+    "GET_BY_ID": "SELECT id_usuario, doc_identidad, nombre, apellido, email, clave, id_rol FROM Usuarios WHERE id_usuario = $1;",
     "GET_BY_DOC_IDENTIDAD":
         "SELECT id_usuario, doc_identidad, nombre, apellido, email, clave, id_rol FROM Usuarios WHERE doc_identidad = $1 ORDER BY id_usuario ASC;",
     "GET_BLOCKED_USERS": `
